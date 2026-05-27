@@ -78,7 +78,10 @@
     @foreach($hasil as $h)
 
         {{-- KHUSUS PKB --}}
-        @if($h['nama'] == 'PKB')
+        @if(
+             $h['nama'] == 'PKB' ||
+             $h['nama'] == 'Pajak Kendaraan Bermotor'
+        )
 
         <div class="group [perspective:1000px]">
 
@@ -90,7 +93,7 @@
                     <div class="flex justify-between items-center">
 
                         <h3 class="text-lg font-bold text-gray-700">
-                            🚗 PKB
+                            🚗 Pajak Kendaraan Bermotor
                         </h3>
 
                         <span class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full">
@@ -184,7 +187,7 @@
                     <div class="mt-6 bg-white/20 rounded-xl p-4">
 
                         <p class="text-sm">
-                            Data E-Samsat tetap dihitung ke total PKB, tetapi ditampilkan terpisah untuk monitoring.
+                            Data E-Samsat tetap dihitung ke total PKB   
                         </p>
 
                     </div>

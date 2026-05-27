@@ -64,7 +64,7 @@
                     <option value="">-- Pilih Jenis --</option>
 
                     <option value="PKB">
-                        PKB
+                        Pajak Kendaraan Bermotor
                     </option>
 
                     <option value="E-Samsat">
@@ -150,7 +150,9 @@ document.addEventListener('DOMContentLoaded', function () {
         let selectedText =
             bagian.options[bagian.selectedIndex].text;
 
-        if(selectedText === 'PKB') {
+        if(
+            selectedText === 'PKB' ||
+            selectedText === 'Pajak Kendaraan Bermotor') {
 
             jenisField.style.display = 'block';
 

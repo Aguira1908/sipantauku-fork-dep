@@ -140,7 +140,10 @@
                         @endphp
 
                         {{-- KHUSUS PKB --}}
-                        @if($namaBagian == 'PKB')
+                        @if(
+                            $namaBagian == 'PKB' ||
+                            $namaBagian == 'Pajak Kendaraan Bermotor'
+                        )
 
                             {{-- E-SAMSAT --}}
                             @if($d->jenis_input == 'E-Samsat')
