@@ -59,7 +59,7 @@
 
     </form>
 
-    <!-- TOTAL CARD -->
+    <!-- TOTAL -->
     <div class="bg-gradient-to-r from-green-500 to-emerald-600 text-white p-6 rounded-2xl shadow-lg mb-8">
 
         <h2 class="text-lg opacity-90">
@@ -72,181 +72,123 @@
 
     </div>
 
-    <!-- CARD PER BAGIAN -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+    <!-- CARD -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
 
-    @foreach($hasil as $h)
+@foreach($hasil as $h)
 
-        {{-- KHUSUS PKB --}}
-        @if(
-             $h['nama'] == 'PKB' ||
-             $h['nama'] == 'Pajak Kendaraan Bermotor'
-        )
+    {{-- =======================
+        PAJAK KENDARAAN BERMOTOR
+    ======================== --}}
+    @if(
+        $h['nama'] == 'PKB' ||
+        $h['nama'] == 'Pajak Kendaraan Bermotor'
+    )
 
-        <div class="group [perspective:1000px]">
+    <div class="group [perspective:1000px]">
 
-            <div class="relative h-72 w-full duration-700 transform-style-preserve-3d group-hover:rotate-y-180">
+        <div class="relative h-80 w-full duration-700 transform-style-preserve-3d group-hover:rotate-y-180">
 
-                <!-- DEPAN -->
-                <div class="absolute inset-0 backface-hidden bg-white p-6 rounded-2xl shadow hover:shadow-xl transition border-l-4 border-green-500">
+            <!-- DEPAN -->
+            <div class="absolute inset-0 backface-hidden bg-white p-6 rounded-2xl shadow border-l-4 border-green-500">
 
-                    <div class="flex justify-between items-center">
-
-                        <h3 class="text-lg font-bold text-gray-700">
-                            🚗 Pajak Kendaraan Bermotor
-                        </h3>
-
-                        <span class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full">
-                            Front
-                        </span>
-
-                    </div>
-
-                    <div class="mt-4 space-y-1">
-
-                        <p class="text-sm text-gray-500">
-                            Realisasi
-                        </p>
-
-                        <p class="text-green-600 font-bold text-lg">
-                            Rp {{ number_format($h['total'],0,',','.') }}
-                        </p>
-
-                        <p class="text-sm text-gray-500">
-                            Target Tahun {{ $tahun }}
-                        </p>
-
-                        <p class="text-gray-800 font-semibold">
-                            Rp {{ number_format($h['target'],0,',','.') }}
-                        </p>
-
-                    </div>
-
-                    <!-- PROGRESS -->
-                    <div class="mt-4">
-
-                        <div class="w-full bg-gray-200 rounded-full h-3">
-
-                            <div class="h-3 rounded-full bg-gradient-to-r from-green-400 to-emerald-600 transition-all duration-500"
-                                style="width: {{ $h['persen'] }}%">
-                            </div>
-
-                        </div>
-
-                        <div class="flex justify-between mt-1 text-sm">
-
-                            <span class="text-gray-500">
-                                Progress
-                            </span>
-
-                            <span class="font-semibold text-green-700">
-                                {{ $h['persen'] }}%
-                            </span>
-
-                        </div>
-
-                    </div>
-
-                    <div class="mt-5 text-xs text-gray-400 text-center">
-                        Hover untuk lihat E-Samsat ↻
-                    </div>
-
-                </div>
-
-                <!-- BELAKANG -->
-                <div class="absolute inset-0 rotate-y-180 backface-hidden bg-gradient-to-br from-blue-500 to-cyan-500 text-white p-6 rounded-2xl shadow-xl">
-
-                    <div class="flex justify-between items-center">
-
-                        <h3 class="text-lg font-bold">
-                            🚘 E-Samsat
-                        </h3>
-
-                        <span class="text-xs bg-white/20 px-2 py-1 rounded-full">
-                            Back
-                        </span>
-
-                    </div>
-
-                    <div class="mt-4 space-y-1">
-
-                        <p class="text-sm opacity-80">
-                            Realisasi E-Samsat
-                        </p>
-
-                        <p class="font-bold text-2xl">
-                            Rp {{ number_format($h['e_samsat'] ?? 0,0,',','.') }}
-                        </p>
-
-                        <p class="text-sm opacity-80 mt-3">
-                            Bagian dari total PKB
-                        </p>
-
-                    </div>
-
-                    <div class="mt-6 bg-white/20 rounded-xl p-4">
-
-                        <p class="text-sm">
-                            Data E-Samsat tetap dihitung ke total PKB   
-                        </p>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-        {{-- BAGIAN LAIN --}}
-        @else
-
-        <div class="bg-white p-6 rounded-2xl shadow hover:shadow-xl transition border-l-4 border-green-500">
-
-            <h3 class="text-lg font-bold text-gray-700">
-                📁 {{ $h['nama'] }}
-            </h3>
-
-            <div class="mt-4 space-y-1">
+                <h3 class="text-xl font-bold text-gray-700 mb-4">
+                    🚗 Pajak Kendaraan Bermotor
+                </h3>
 
                 <p class="text-sm text-gray-500">
                     Realisasi
                 </p>
 
-                <p class="text-green-600 font-bold text-lg">
+                <p class="text-2xl font-bold text-green-600">
                     Rp {{ number_format($h['total'],0,',','.') }}
                 </p>
 
-                <p class="text-sm text-gray-500">
-                    Target Tahun {{ $tahun }}
-                </p>
+                <div class="mt-4">
 
-                <p class="text-gray-800 font-semibold">
-                    Rp {{ number_format($h['target'],0,',','.') }}
-                </p>
+                    <p class="text-sm text-gray-500">
+                        Target Tahun {{ $tahun }}
+                    </p>
 
-            </div>
+                    <p class="font-semibold">
+                        Rp {{ number_format($h['target'],0,',','.') }}
+                    </p>
 
-            <!-- PROGRESS -->
-            <div class="mt-4">
+                </div>
 
-                <div class="w-full bg-gray-200 rounded-full h-3">
+                <div class="mt-5">
 
-                    <div class="h-3 rounded-full bg-gradient-to-r from-green-400 to-emerald-600 transition-all duration-500"
-                        style="width: {{ $h['persen'] }}%">
+                    <div class="w-full bg-gray-200 rounded-full h-3">
+
+                        <div
+                            class="bg-gradient-to-r from-green-400 to-green-600 h-3 rounded-full"
+                            style="width: {{ $h['persen'] }}%">
+                        </div>
+
+                    </div>
+
+                    <div class="flex justify-between mt-2">
+
+                        <span>Progress</span>
+
+                        <span class="font-bold text-green-700">
+                            {{ $h['persen'] }}%
+                        </span>
+
                     </div>
 
                 </div>
 
-                <div class="flex justify-between mt-1 text-sm">
+                <div class="mt-6 text-center text-xs text-gray-400">
+                    Hover untuk melihat detail →
+                </div>
 
-                    <span class="text-gray-500">
-                        Progress
-                    </span>
+            </div>
 
-                    <span class="font-semibold text-green-700">
-                        {{ $h['persen'] }}%
-                    </span>
+            <!-- BELAKANG -->
+            <div class="absolute inset-0 rotate-y-180 backface-hidden rounded-2xl shadow-xl bg-gradient-to-br from-blue-500 to-cyan-600 text-white p-6">
+
+                <h2 class="text-xl font-bold mb-5">
+                    📊 Detail PKB
+                </h2>
+
+                <div class="bg-white/20 rounded-xl p-4 mb-4">
+
+                    <div class="flex justify-between">
+
+                        <span>🚘 E-Samsat</span>
+
+                        <span class="font-bold">
+                            Rp {{ number_format($h['e_samsat'] ?? 0,0,',','.') }}
+                        </span>
+
+                    </div>
+
+                </div>
+
+                <div class="bg-white/20 rounded-xl p-4 mb-4">
+
+                    <div class="flex justify-between">
+
+                        <span>🚀 SIGAP</span>
+
+                        <span class="font-bold">
+                            Rp {{ number_format($h['sigap'] ?? 0,0,',','.') }}
+                        </span>
+
+                    </div>
+
+                </div>
+
+                <div class="bg-white rounded-xl text-gray-800 p-4">
+
+                    <p class="text-sm text-gray-500">
+                        Total PKB
+                    </p>
+
+                    <p class="text-2xl font-bold text-green-700">
+                        Rp {{ number_format($h['total'],0,',','.') }}
+                    </p>
 
                 </div>
 
@@ -254,17 +196,202 @@
 
         </div>
 
-        @endif
+    </div>
 
-    @endforeach
+    {{-- =======================
+        DENDA PKB
+    ======================== --}}
+    @elseif(
+        $h['nama'] == 'Denda PKB' ||
+        $h['nama'] == 'Denda Pajak Kendaraan Bermotor'
+    )
+
+    <div class="group [perspective:1000px]">
+
+        <div class="relative h-80 w-full duration-700 transform-style-preserve-3d group-hover:rotate-y-180">
+
+            <!-- DEPAN -->
+            <div class="absolute inset-0 backface-hidden bg-white p-6 rounded-2xl shadow border-l-4 border-red-500">
+
+                <h3 class="text-xl font-bold text-gray-700 mb-4">
+                    🚨 Denda Pajak Kendaraan Bermotor
+                </h3>
+
+                <p class="text-sm text-gray-500">
+                    Realisasi
+                </p>
+
+                <p class="text-2xl font-bold text-red-600">
+                    Rp {{ number_format($h['total'],0,',','.') }}
+                </p>
+
+                <div class="mt-4">
+
+                    <p class="text-sm text-gray-500">
+                        Target Tahun {{ $tahun }}
+                    </p>
+
+                    <p class="font-semibold">
+                        Rp {{ number_format($h['target'],0,',','.') }}
+                    </p>
+
+                </div>
+
+                <div class="mt-5">
+
+                    <div class="w-full bg-gray-200 rounded-full h-3">
+
+                        <div
+                            class="bg-gradient-to-r from-red-400 to-red-600 h-3 rounded-full"
+                            style="width: {{ $h['persen'] }}%">
+                        </div>
+
+                    </div>
+
+                    <div class="flex justify-between mt-2">
+
+                        <span>Progress</span>
+
+                        <span class="font-bold text-red-700">
+                            {{ $h['persen'] }}%
+                        </span>
+
+                    </div>
+
+                </div>
+
+                <div class="mt-6 text-center text-xs text-gray-400">
+                    Hover untuk melihat detail →
+                </div>
+
+            </div>
+
+            <!-- BELAKANG -->
+            <div class="absolute inset-0 rotate-y-180 backface-hidden rounded-2xl shadow-xl bg-gradient-to-br from-red-500 to-orange-500 text-white p-6">
+
+                <h2 class="text-xl font-bold mb-5">
+                    🚨 Detail Denda PKB
+                </h2>
+
+                <div class="bg-white/20 rounded-xl p-4 mb-4">
+
+                    <div class="flex justify-between">
+
+                        <span>🚘 Denda E-Samsat</span>
+
+                        <span class="font-bold">
+                            Rp {{ number_format($h['denda_e_samsat'] ?? 0,0,',','.') }}
+                        </span>
+
+                    </div>
+
+                </div>
+
+                <div class="bg-white/20 rounded-xl p-4 mb-4">
+
+                    <div class="flex justify-between">
+
+                        <span>🚀 Denda SIGAP</span>
+
+                        <span class="font-bold">
+                            Rp {{ number_format($h['denda_sigap'] ?? 0,0,',','.') }}
+                        </span>
+
+                    </div>
+
+                </div>
+
+                <div class="bg-white rounded-xl text-gray-800 p-4">
+
+                    <p class="text-sm text-gray-500">
+                        Total Denda PKB
+                    </p>
+
+                    <p class="text-2xl font-bold text-red-700">
+                        Rp {{ number_format($h['total'],0,',','.') }}
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
 
     </div>
+
+    {{-- =======================
+        BAGIAN LAIN
+    ======================== --}}
+    @else
+
+    <div class="bg-white p-6 rounded-2xl shadow hover:shadow-xl transition border-l-4 border-green-500">
+
+        <h3 class="text-lg font-bold text-gray-700">
+            📁 {{ $h['nama'] }}
+        </h3>
+
+        <div class="mt-4">
+
+            <p class="text-sm text-gray-500">
+                Realisasi
+            </p>
+
+            <p class="text-green-600 font-bold text-xl">
+                Rp {{ number_format($h['total'],0,',','.') }}
+            </p>
+
+        </div>
+
+        <div class="mt-4">
+
+            <p class="text-sm text-gray-500">
+                Target Tahun {{ $tahun }}
+            </p>
+
+            <p class="font-semibold">
+                Rp {{ number_format($h['target'],0,',','.') }}
+            </p>
+
+        </div>
+
+        <div class="mt-5">
+
+            <div class="w-full bg-gray-200 rounded-full h-3">
+
+                <div
+                    class="bg-gradient-to-r from-green-400 to-green-600 h-3 rounded-full"
+                    style="width: {{ $h['persen'] }}%">
+                </div>
+
+            </div>
+
+            <div class="flex justify-between mt-2">
+
+                <span>Progress</span>
+
+                <span class="font-bold text-green-700">
+                    {{ $h['persen'] }}%
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    @endif
+
+@endforeach
+
+</div>
 
     <!-- CHART -->
     <div class="bg-white p-6 rounded-2xl shadow-lg">
 
         <h2 class="font-bold text-gray-700 mb-4">
+
             📈 Perbandingan Target vs Realisasi
+
         </h2>
 
         <canvas id="chart"></canvas>
@@ -273,54 +400,45 @@
 
 </div>
 
-<!-- CHART -->
 <script>
 
 const data = @json($hasil);
 
 new Chart(document.getElementById('chart'), {
 
-    type: 'bar',
+    type:'bar',
 
-    data: {
+    data:{
 
-        labels: data.map(d => d.nama),
+        labels:data.map(d=>d.nama),
 
-        datasets: [
+        datasets:[
 
             {
-                label: 'Realisasi',
-                data: data.map(d => d.total),
-                backgroundColor: 'rgba(239, 68, 68, 0.8)',
-                borderRadius: 6
+
+                label:'Realisasi',
+
+                data:data.map(d=>d.total),
+
+                backgroundColor:'rgba(239,68,68,.8)',
+
+                borderRadius:6
+
             },
 
             {
-                label: 'Target Tahun {{ $tahun }}',
-                data: data.map(d => d.target),
-                backgroundColor: 'rgba(16,185,129,0.8)',
-                borderRadius: 6
+
+                label:'Target Tahun {{ $tahun }}',
+
+                data:data.map(d=>d.target),
+
+                backgroundColor:'rgba(16,185,129,.8)',
+
+                borderRadius:6
+
             }
 
         ]
-
-    },
-
-    options: {
-
-        responsive: true,
-
-        plugins: {
-            legend: {
-                position: 'bottom'
-            }
-        },
-
-        scales: {
-            y: {
-                beginAtZero: true
-            }
-        }
 
     }
 
@@ -328,23 +446,30 @@ new Chart(document.getElementById('chart'), {
 
 </script>
 
-<!-- FLIP CARD CSS -->
 <style>
 
-.transform-style-preserve-3d {
-    transform-style: preserve-3d;
+.transform-style-preserve-3d{
+
+    transform-style:preserve-3d;
+
 }
 
-.backface-hidden {
-    backface-visibility: hidden;
+.backface-hidden{
+
+    backface-visibility:hidden;
+
 }
 
-.rotate-y-180 {
-    transform: rotateY(180deg);
+.rotate-y-180{
+
+    transform:rotateY(180deg);
+
 }
 
-.group:hover .group-hover\:rotate-y-180 {
-    transform: rotateY(180deg);
+.group:hover .group-hover\:rotate-y-180{
+
+    transform:rotateY(180deg);
+
 }
 
 </style>

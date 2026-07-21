@@ -18,10 +18,10 @@ class DashboardController extends Controller
             ->whereYear('tanggal', $tahun)
             ->get();
 
-        // TOTAL SEMUA PENERIMAAN
+        // TOTAL SELURUH PENERIMAAN
         $total = $data->sum('jumlah_uang');
 
-        // TARGET
+        // TARGET PER BAGIAN
         $targets = Target::query()
             ->where('tahun', $tahun)
             ->get()
@@ -34,35 +34,83 @@ class DashboardController extends Controller
 
         foreach ($grouped as $bagian_id => $items) {
 
+            // ============================
             // TOTAL BAGIAN
+            // ============================
             $totalBagian = $items->sum('jumlah_uang');
 
-            // KHUSUS E-SAMSAT
+            // ============================
+            // KHUSUS PAJAK KENDARAAN BERMOTOR
+            // ============================
+
+            // PKB
+            $pkb = $items
+                ->where('jenis_input', 'PKB')
+                ->sum('jumlah_uang');
+
+            // E-Samsat
             $eSamsat = $items
                 ->where('jenis_input', 'E-Samsat')
                 ->sum('jumlah_uang');
 
+            // SIGAP
+            $sigap = $items
+                ->where('jenis_input', 'SIGAP')
+                ->sum('jumlah_uang');
+
+            // ============================
+            // KHUSUS DENDA PKB
+            // ============================
+
+            // Denda E-Samsat
+            $dendaESamsat = $items
+                ->where('jenis_input', 'Denda E-Samsat')
+                ->sum('jumlah_uang');
+
+            // Denda SIGAP
+            $dendaSigap = $items
+                ->where('jenis_input', 'Denda SIGAP')
+                ->sum('jumlah_uang');
+
+            // ============================
             // TARGET
+            // ============================
+
             $target = isset($targets[$bagian_id])
                 ? $targets[$bagian_id]->target_uang
                 : 0;
 
-            // PERSEN
+            // ============================
+            // PERSENTASE
+            // ============================
+
             $persen = $target > 0
                 ? round(($totalBagian / $target) * 100, 2)
                 : 0;
 
-            // SIMPAN KE ARRAY
+            // ============================
+            // SIMPAN DATA
+            // ============================
+
             $hasil[] = [
 
                 'nama' => $items->first()->bagian->nama_bagian,
 
                 'total' => $totalBagian,
 
+                // PKB
+                'pkb' => $pkb,
                 'e_samsat' => $eSamsat,
+                'sigap' => $sigap,
 
+                // DENDA PKB
+                'denda_e_samsat' => $dendaESamsat,
+                'denda_sigap' => $dendaSigap,
+
+                // TARGET
                 'target' => $target,
 
+                // PERSEN
                 'persen' => $persen,
 
             ];

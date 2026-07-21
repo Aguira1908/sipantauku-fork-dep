@@ -153,13 +153,20 @@
                                 </span>
 
                             {{-- PKB --}}
+                           @elseif($d->jenis_input == 'SIGAP')
+
+                                <span class="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-xs font-semibold shadow-sm">
+                                    🚀 SIGAP
+                                </span>
+
                             @else
 
                                 <span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-semibold shadow-sm">
-                                    🚗 PKB
+                                    🚗 Pajak Kendaraan Bermotor
                                 </span>
 
                             @endif
+
 
                         {{-- BAGIAN LAIN --}}
                         @else

@@ -54,22 +54,13 @@
             <div id="jenis-field" style="display:none;">
 
                 <label class="block text-sm font-medium text-gray-700 mb-1">
-                    Jenis PKB
+                    Jenis Penerimaan
                 </label>
 
                 <select
+                    id="jenis_input"
                     name="jenis_input"
-                    class="w-full border border-gray-300 p-2 rounded-lg focus:ring-2 focus:ring-green-400 focus:outline-none">
-
-                    <option value="">-- Pilih Jenis --</option>
-
-                    <option value="PKB">
-                        Pajak Kendaraan Bermotor
-                    </option>
-
-                    <option value="E-Samsat">
-                        E-Samsat
-                    </option>
+                    class="w-full border border-gray-300 p-2 rounded-lg focus:ring-2 focus:ring-green-400">
 
                 </select>
 
@@ -84,7 +75,7 @@
                 <input
                     type="number"
                     name="jumlah_uang"
-                    class="w-full border border-gray-300 p-2 rounded-lg focus:ring-2 focus:ring-green-400 focus:outline-none"
+                    class="w-full border border-gray-300 p-2 rounded-lg focus:ring-2 focus:ring-green-400"
                     placeholder="Masukkan jumlah uang">
             </div>
 
@@ -97,7 +88,7 @@
                 <input
                     type="date"
                     name="tanggal"
-                    class="w-full border border-gray-300 p-2 rounded-lg focus:ring-2 focus:ring-green-400 focus:outline-none">
+                    class="w-full border border-gray-300 p-2 rounded-lg focus:ring-2 focus:ring-green-400">
             </div>
 
             <!-- KETERANGAN -->
@@ -108,7 +99,7 @@
 
                 <textarea
                     name="keterangan"
-                    class="w-full border border-gray-300 p-2 rounded-lg focus:ring-2 focus:ring-green-400 focus:outline-none"
+                    class="w-full border border-gray-300 p-2 rounded-lg focus:ring-2 focus:ring-green-400"
                     placeholder="Opsional..."></textarea>
             </div>
 
@@ -116,7 +107,7 @@
             <div class="flex justify-between items-center pt-4">
 
                 <a href="/admin"
-                    class="bg-gray-400 hover:bg-gray-500 text-white px-4 py-2 rounded-lg transition">
+                    class="bg-gray-400 hover:bg-gray-500 text-white px-4 py-2 rounded-lg">
                     ⬅ Kembali
                 </a>
 
@@ -135,32 +126,70 @@
 
 </div>
 
-<!-- SCRIPT -->
 <script>
 
 document.addEventListener('DOMContentLoaded', function () {
 
     const bagian = document.getElementById('bagian');
-
-    const jenisField =
-        document.getElementById('jenis-field');
+    const jenisField = document.getElementById('jenis-field');
+    const jenisInput = document.getElementById('jenis_input');
 
     function checkBagian() {
 
-        let selectedText =
-            bagian.options[bagian.selectedIndex].text;
+        let nama =
+            bagian.options[bagian.selectedIndex].text.trim();
 
-        if(
-            selectedText === 'PKB' ||
-            selectedText === 'Pajak Kendaraan Bermotor') {
+        jenisInput.innerHTML = '';
+
+        // ===============================
+        // PAJAK KENDARAAN BERMOTOR
+        // ===============================
+        if (
+            nama === 'PKB' ||
+            nama === 'Pajak Kendaraan Bermotor'
+        ) {
 
             jenisField.style.display = 'block';
 
-        } else {
+            jenisInput.innerHTML = `
+                <option value="">-- Pilih Jenis --</option>
+                <option value="PKB">Pajak Kendaraan Bermotor</option>
+                <option value="E-Samsat">E-Samsat</option>
+                <option value="SIGAP">SIGAP</option>
+            `;
+
+        }
+
+        // ===============================
+        // DENDA PKB
+        // ===============================
+        else if (
+            nama === 'Denda PKB' ||
+            nama === 'Denda Pajak Kendaraan Bermotor'
+        ) {
+
+            jenisField.style.display = 'block';
+
+            jenisInput.innerHTML = `
+                <option value="">-- Pilih Jenis --</option>
+                <option value="Denda PKB">Denda PKB</option>
+                <option value="Denda E-Samsat">Denda E-Samsat</option>
+                <option value="Denda SIGAP">Denda SIGAP</option>
+            `;
+
+        }
+
+        // ===============================
+        // BAGIAN LAIN
+        // ===============================
+        else {
 
             jenisField.style.display = 'none';
 
+            jenisInput.innerHTML = '';
+
         }
+
     }
 
     checkBagian();
