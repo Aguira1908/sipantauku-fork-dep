@@ -152,11 +152,12 @@ document.addEventListener('DOMContentLoaded', function () {
             jenisField.style.display = 'block';
 
             jenisInput.innerHTML = `
-                <option value="">-- Pilih Jenis --</option>
-                <option value="PKB">Pajak Kendaraan Bermotor</option>
-                <option value="E-Samsat">E-Samsat</option>
-                <option value="SIGAP">SIGAP</option>
-            `;
+            <option value="">-- Pilih Jenis --</option>
+            <option value="PKB">Pajak Kendaraan Bermotor</option>
+            <option value="PKB BBN 1">PKB BBN 1</option>
+            <option value="E-Samsat">E-Samsat</option>
+            <option value="SIGAP">SIGAP</option>
+        `;
 
         }
 
@@ -171,11 +172,12 @@ document.addEventListener('DOMContentLoaded', function () {
             jenisField.style.display = 'block';
 
             jenisInput.innerHTML = `
-                <option value="">-- Pilih Jenis --</option>
-                <option value="Denda PKB">Denda PKB</option>
-                <option value="Denda E-Samsat">Denda E-Samsat</option>
-                <option value="Denda SIGAP">Denda SIGAP</option>
-            `;
+            <option value="">-- Pilih Jenis --</option>
+            <option value="Denda PKB">Denda PKB</option>
+            <option value="Denda PKB BBN 1">Denda PKB BBN 1</option>
+            <option value="Denda E-Samsat">Denda E-Samsat</option>
+            <option value="Denda SIGAP">Denda SIGAP</option>
+        `;
 
         }
 

@@ -139,39 +139,85 @@
                             $namaBagian = $d->bagian->nama_bagian;
                         @endphp
 
-                        {{-- KHUSUS PKB --}}
                         @if(
                             $namaBagian == 'PKB' ||
                             $namaBagian == 'Pajak Kendaraan Bermotor'
                         )
 
-                            {{-- E-SAMSAT --}}
-                            @if($d->jenis_input == 'E-Samsat')
+                            @switch($d->jenis_input)
 
-                                <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-semibold shadow-sm">
-                                    🚘 E-Samsat
-                                </span>
+                                @case('PKB')
+                                    <span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-semibold">
+                                        🚗 PKB
+                                    </span>
+                                @break
 
-                            {{-- PKB --}}
-                           @elseif($d->jenis_input == 'SIGAP')
+                                @case('PKB BBN 1')
+                                    <span class="px-3 py-1 bg-emerald-100 text-emerald-700 rounded-full text-xs font-semibold">
+                                        🆕 PKB BBN 1
+                                    </span>
+                                @break
 
-                                <span class="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-xs font-semibold shadow-sm">
-                                    🚀 SIGAP
-                                </span>
+                                @case('E-Samsat')
+                                    <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-semibold">
+                                        🚘 E-Samsat
+                                    </span>
+                                @break
 
-                            @else
+                                @case('SIGAP')
+                                    <span class="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-xs font-semibold">
+                                        🚀 SIGAP
+                                    </span>
+                                @break
 
-                                <span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-semibold shadow-sm">
-                                    🚗 Pajak Kendaraan Bermotor
-                                </span>
+                                @default
+                                    <span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-semibold">
+                                        🚗 PKB
+                                    </span>
 
-                            @endif
+                            @endswitch
 
+                        @elseif(
+                            $namaBagian == 'Denda PKB' ||
+                            $namaBagian == 'Denda Pajak Kendaraan Bermotor'
+                        )
 
-                        {{-- BAGIAN LAIN --}}
+                            @switch($d->jenis_input)
+
+                                @case('Denda PKB')
+                                    <span class="px-3 py-1 bg-red-100 text-red-700 rounded-full text-xs font-semibold">
+                                        🚨 Denda PKB
+                                    </span>
+                                @break
+
+                                @case('Denda PKB BBN 1')
+                                    <span class="px-3 py-1 bg-orange-100 text-orange-700 rounded-full text-xs font-semibold">
+                                        🆕 Denda PKB BBN 1
+                                    </span>
+                                @break
+
+                                @case('Denda E-Samsat')
+                                    <span class="px-3 py-1 bg-red-100 text-red-700 rounded-full text-xs font-semibold">
+                                        🚘 Denda E-Samsat
+                                    </span>
+                                @break
+
+                                @case('Denda SIGAP')
+                                    <span class="px-3 py-1 bg-pink-100 text-pink-700 rounded-full text-xs font-semibold">
+                                        🚀 Denda SIGAP
+                                    </span>
+                                @break
+
+                                @default
+                                    <span class="px-3 py-1 bg-red-100 text-red-700 rounded-full text-xs font-semibold">
+                                        🚨 Denda PKB
+                                    </span>
+
+                            @endswitch
+
                         @else
 
-                            <span class="px-3 py-1 bg-emerald-100 text-emerald-700 rounded-full text-xs font-semibold shadow-sm">
+                            <span class="px-3 py-1 bg-emerald-100 text-emerald-700 rounded-full text-xs font-semibold">
                                 📁 {{ $namaBagian }}
                             </span>
 
@@ -238,7 +284,7 @@
         <div class="w-full bg-gray-200 rounded-full h-3">
 
             <div class="bg-gradient-to-r from-green-400 to-emerald-600 h-3 rounded-full transition-all"
-                style="width: {{ $h['persen'] }}%">
+                style="width: {{ min($h['persen'],100) }}%"
             </div>
 
         </div>

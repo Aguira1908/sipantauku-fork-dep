@@ -9,6 +9,7 @@ use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\PenerimaanController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TargetController;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,7 +17,31 @@ use App\Http\Controllers\TargetController;
 |--------------------------------------------------------------------------
 */
 
-Route::get('/', [DashboardController::class, 'index']);
+Route::get('/', function () {
+    return view('dashboard-password');
+});
+
+Route::get('/dashboard-password', function () {
+    return view('dashboard-password');
+});
+
+Route::post('/dashboard-password', function (Request $request) {
+
+    if ($request->password == 'UPTDPPRDKutim') {
+
+        session([
+            'dashboard_access' => true
+        ]);
+
+        return redirect('/');
+    }
+
+    return back()->with('error','Password salah.');
+
+});
+
+Route::get('/', [DashboardController::class, 'index'])
+    ->middleware('dashboard.password');
 
 Route::get('/laporan', [LaporanController::class, 'index']);
 Route::get('/laporan/download', [LaporanController::class, 'download']);

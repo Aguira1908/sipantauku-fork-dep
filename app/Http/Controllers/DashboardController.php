@@ -48,6 +48,11 @@ class DashboardController extends Controller
                 ->where('jenis_input', 'PKB')
                 ->sum('jumlah_uang');
 
+            // PKB BBN 1
+            $pkbBbn1 = $items
+                ->where('jenis_input', 'PKB BBN 1')
+                ->sum('jumlah_uang');
+
             // E-Samsat
             $eSamsat = $items
                 ->where('jenis_input', 'E-Samsat')
@@ -62,6 +67,16 @@ class DashboardController extends Controller
             // KHUSUS DENDA PKB
             // ============================
 
+            // Denda PKB
+            $dendaPkb = $items
+                ->where('jenis_input', 'Denda PKB')
+                ->sum('jumlah_uang');
+
+            // Denda PKB BBN 1
+            $dendaPkbBbn1 = $items
+                ->where('jenis_input', 'Denda PKB BBN 1')
+                ->sum('jumlah_uang');
+
             // Denda E-Samsat
             $dendaESamsat = $items
                 ->where('jenis_input', 'Denda E-Samsat')
@@ -71,7 +86,6 @@ class DashboardController extends Controller
             $dendaSigap = $items
                 ->where('jenis_input', 'Denda SIGAP')
                 ->sum('jumlah_uang');
-
             // ============================
             // TARGET
             // ============================
@@ -100,17 +114,17 @@ class DashboardController extends Controller
 
                 // PKB
                 'pkb' => $pkb,
+                'pkb_bbn1' => $pkbBbn1,
                 'e_samsat' => $eSamsat,
                 'sigap' => $sigap,
 
                 // DENDA PKB
+                'denda_pkb' => $dendaPkb,
+                'denda_pkb_bbn1' => $dendaPkbBbn1,
                 'denda_e_samsat' => $dendaESamsat,
                 'denda_sigap' => $dendaSigap,
 
-                // TARGET
                 'target' => $target,
-
-                // PERSEN
                 'persen' => $persen,
 
             ];

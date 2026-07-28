@@ -122,7 +122,7 @@
 
                         <div
                             class="bg-gradient-to-r from-green-400 to-green-600 h-3 rounded-full"
-                            style="width: {{ $h['persen'] }}%">
+                            style="width: {{ min($h['persen'],100) }}%">
                         </div>
 
                     </div>
@@ -146,17 +146,38 @@
             </div>
 
             <!-- BELAKANG -->
-            <div class="absolute inset-0 rotate-y-180 backface-hidden rounded-2xl shadow-xl bg-gradient-to-br from-blue-500 to-cyan-600 text-white p-6">
+            <div class="absolute inset-0 rotate-y-180 backface-hidden rounded-2xl shadow-xl bg-gradient-to-br from-blue-500 to-cyan-600 text-white p-6 overflow-y-auto">
 
                 <h2 class="text-xl font-bold mb-5">
                     📊 Detail PKB
                 </h2>
 
-                <div class="bg-white/20 rounded-xl p-4 mb-4">
+
+                <!-- PKB BBN 1 -->
+                <div class="bg-white/20 rounded-xl p-4 mb-3">
 
                     <div class="flex justify-between">
 
-                        <span>🚘 E-Samsat</span>
+                        <span>
+                            🆕 PKB BBN 1
+                        </span>
+
+                        <span class="font-bold">
+                            Rp {{ number_format($h['pkb_bbn1'] ?? 0,0,',','.') }}
+                        </span>
+
+                    </div>
+
+                </div>
+
+                <!-- E-Samsat -->
+                <div class="bg-white/20 rounded-xl p-4 mb-3">
+
+                    <div class="flex justify-between">
+
+                        <span>
+                            🚘 E-Samsat
+                        </span>
 
                         <span class="font-bold">
                             Rp {{ number_format($h['e_samsat'] ?? 0,0,',','.') }}
@@ -166,11 +187,14 @@
 
                 </div>
 
+                <!-- SIGAP -->
                 <div class="bg-white/20 rounded-xl p-4 mb-4">
 
                     <div class="flex justify-between">
 
-                        <span>🚀 SIGAP</span>
+                        <span>
+                            🚀 SIGAP
+                        </span>
 
                         <span class="font-bold">
                             Rp {{ number_format($h['sigap'] ?? 0,0,',','.') }}
@@ -180,6 +204,7 @@
 
                 </div>
 
+                <!-- Total -->
                 <div class="bg-white rounded-xl text-gray-800 p-4">
 
                     <p class="text-sm text-gray-500">
@@ -243,7 +268,7 @@
 
                         <div
                             class="bg-gradient-to-r from-red-400 to-red-600 h-3 rounded-full"
-                            style="width: {{ $h['persen'] }}%">
+                            style="width: {{ min($h['persen'],100) }}%">
                         </div>
 
                     </div>
@@ -267,42 +292,44 @@
             </div>
 
             <!-- BELAKANG -->
-            <div class="absolute inset-0 rotate-y-180 backface-hidden rounded-2xl shadow-xl bg-gradient-to-br from-red-500 to-orange-500 text-white p-6">
+            <div class="absolute inset-0 rotate-y-180 backface-hidden rounded-2xl shadow-xl bg-gradient-to-br from-red-500 to-orange-500 text-white p-6 h-80 overflow-y-auto">
 
                 <h2 class="text-xl font-bold mb-5">
                     🚨 Detail Denda PKB
                 </h2>
 
-                <div class="bg-white/20 rounded-xl p-4 mb-4">
-
+                <!-- Denda PKB BBN 1 -->
+                <div class="bg-white/20 rounded-xl p-4 mb-3">
                     <div class="flex justify-between">
+                        <span>🆕 Denda PKB BBN 1</span>
+                        <span class="font-bold">
+                            Rp {{ number_format($h['denda_pkb_bbn1'] ?? 0,0,',','.') }}
+                        </span>
+                    </div>
+                </div>
 
+                <!-- Denda E-Samsat -->
+                <div class="bg-white/20 rounded-xl p-4 mb-3">
+                    <div class="flex justify-between">
                         <span>🚘 Denda E-Samsat</span>
-
                         <span class="font-bold">
                             Rp {{ number_format($h['denda_e_samsat'] ?? 0,0,',','.') }}
                         </span>
-
                     </div>
-
                 </div>
 
+                <!-- Denda SIGAP -->
                 <div class="bg-white/20 rounded-xl p-4 mb-4">
-
                     <div class="flex justify-between">
-
                         <span>🚀 Denda SIGAP</span>
-
                         <span class="font-bold">
                             Rp {{ number_format($h['denda_sigap'] ?? 0,0,',','.') }}
                         </span>
-
                     </div>
-
                 </div>
 
+                <!-- Total -->
                 <div class="bg-white rounded-xl text-gray-800 p-4">
-
                     <p class="text-sm text-gray-500">
                         Total Denda PKB
                     </p>
@@ -310,7 +337,6 @@
                     <p class="text-2xl font-bold text-red-700">
                         Rp {{ number_format($h['total'],0,',','.') }}
                     </p>
-
                 </div>
 
             </div>
@@ -360,7 +386,7 @@
 
                 <div
                     class="bg-gradient-to-r from-green-400 to-green-600 h-3 rounded-full"
-                    style="width: {{ $h['persen'] }}%">
+                    style="width: {{ min($h['persen'],100) }}%">
                 </div>
 
             </div>
