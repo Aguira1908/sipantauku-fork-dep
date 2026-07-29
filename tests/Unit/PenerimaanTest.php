@@ -3,6 +3,9 @@
 use App\Models\Penerimaan;
 use App\Models\Bagian;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Tests\TestCase;
+
+uses(TestCase::class);
 
 test('penerimaan model has correct fillable attributes', function () {
     $penerimaan = new Penerimaan();

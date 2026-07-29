@@ -2,6 +2,9 @@
 
 use App\Models\Bagian;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Tests\TestCase;
+
+uses(TestCase::class);
 
 test('bagian model has correct fillable attributes', function () {
     $bagian = new Bagian();

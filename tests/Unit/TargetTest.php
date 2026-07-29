@@ -3,6 +3,9 @@
 use App\Models\Target;
 use App\Models\Bagian;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Tests\TestCase;
+
+uses(TestCase::class);
 
 test('target model has correct fillable attributes', function () {
     $target = new Target();
