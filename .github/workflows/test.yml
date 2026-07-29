@@ -1,0 +1,52 @@
+name: laravel test
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-24.04
+
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: test
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v4
+
+      - name: setup php
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.3
+          extension: mbstring, dom, fileinfo, mysql, zip
+          coverage: xdebug
+
+      - name: cache Composer dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.composer/cache
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: ${{ runner.os }}-composer-
+
+      - name: install dependencies
+        run: composer install --prefer-dist --no-progress --no-suggest
+
+      - name: copy env file
+        run: cp .env.example .env
+
+      - name: generate application key
+        run: php artisan key:generate
+
+      - name: run migration
+        run: php artisan migrate --force
+
+      - name: run test
+        run: vendor/bin/pest tests/Unit
