@@ -156,6 +156,7 @@ document.addEventListener('DOMContentLoaded', function () {
             <option value="PKB">Pajak Kendaraan Bermotor</option>
             <option value="PKB BBN 1">PKB BBN 1</option>
             <option value="E-Samsat">E-Samsat</option>
+            <option value="Relaksasi Pajak 2026">Relaksasi Pajak 2026</option>
             <option value="SIGAP">SIGAP</option>
         `;
 

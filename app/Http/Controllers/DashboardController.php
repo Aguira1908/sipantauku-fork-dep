@@ -13,10 +13,24 @@ class DashboardController extends Controller
     {
         $tahun = $request->tahun ?? date('Y');
 
-        // DATA SESUAI TAHUN
-        $data = Penerimaan::with('bagian')
-            ->whereYear('tanggal', $tahun)
-            ->get();
+$tanggalMulai = $request->tanggal_mulai;
+$tanggalSampai = $request->tanggal_sampai;
+
+// DATA SESUAI TAHUN + RENTANG TANGGAL
+$query = Penerimaan::with('bagian')
+    ->whereYear('tanggal', $tahun);
+
+// Kalau tanggal mulai diisi
+if ($tanggalMulai) {
+    $query->whereDate('tanggal', '>=', $tanggalMulai);
+}
+
+// Kalau tanggal sampai diisi
+if ($tanggalSampai) {
+    $query->whereDate('tanggal', '<=', $tanggalSampai);
+}
+
+$data = $query->get();
 
         // TOTAL SELURUH PENERIMAAN
         $total = $data->sum('jumlah_uang');
@@ -51,6 +65,11 @@ class DashboardController extends Controller
             // PKB BBN 1
             $pkbBbn1 = $items
                 ->where('jenis_input', 'PKB BBN 1')
+                ->sum('jumlah_uang');
+
+            // RELAKSASI PAJAK 2026
+            $relaksasiPajak2026 = $items
+                ->where('jenis_input', 'Relaksasi Pajak 2026')
                 ->sum('jumlah_uang');
 
             // E-Samsat
@@ -115,6 +134,7 @@ class DashboardController extends Controller
                 // PKB
                 'pkb' => $pkb,
                 'pkb_bbn1' => $pkbBbn1,
+                'relaksasi_pajak_2026' => $relaksasiPajak2026,
                 'e_samsat' => $eSamsat,
                 'sigap' => $sigap,
 
