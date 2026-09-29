@@ -41,7 +41,13 @@
 
     <!-- FILTER -->
     <form method="GET"
-        class="flex flex-wrap gap-4 mb-6 bg-white p-4 rounded-xl shadow">
+    class="flex flex-wrap gap-4 mb-6 bg-white p-4 rounded-xl shadow">
+
+    <!-- TAHUN -->
+    <div>
+        <label class="block text-sm font-semibold text-gray-600 mb-1">
+            Tahun
+        </label>
 
         <input
             type="number"
@@ -49,15 +55,50 @@
             value="{{ $tahun }}"
             class="border border-gray-300 p-2 rounded-lg focus:ring-2 focus:ring-green-400"
             placeholder="Tahun">
+    </div>
+
+    <!-- TANGGAL MULAI -->
+    <div>
+        <label class="block text-sm font-semibold text-gray-600 mb-1">
+            Dari Tanggal
+        </label>
+
+        <input
+            type="date"
+            name="tanggal_mulai"
+            value="{{ $tanggal_mulai ?? '' }}"
+            class="border border-gray-300 p-2 rounded-lg focus:ring-2 focus:ring-green-400">
+    </div>
+
+    <!-- TANGGAL AKHIR -->
+    <div>
+        <label class="block text-sm font-semibold text-gray-600 mb-1">
+            Sampai Tanggal
+        </label>
+
+        <input
+            type="date"
+            name="tanggal_sampai"
+            value="{{ $tanggal_sampai ?? '' }}"
+            class="border border-gray-300 p-2 rounded-lg focus:ring-2 focus:ring-green-400">
+    </div>
+
+    <!-- BUTTON -->
+    <div class="flex items-end gap-2">
 
         <button
             class="bg-green-600 text-white px-5 py-2 rounded-lg hover:bg-green-700 transition shadow">
-
-            Filter
-
+            🔍 Filter
         </button>
 
-    </form>
+        <a href="/dashboard"
+            class="bg-gray-400 text-white px-5 py-2 rounded-lg hover:bg-gray-500 transition">
+            ↻ Reset
+        </a>
+
+    </div>
+
+</form>
 
     <!-- TOTAL -->
     <div class="bg-gradient-to-r from-green-500 to-emerald-600 text-white p-6 rounded-2xl shadow-lg mb-8">
@@ -85,143 +126,163 @@
         $h['nama'] == 'Pajak Kendaraan Bermotor'
     )
 
-    <div class="group [perspective:1000px]">
+<div class="group [perspective:1000px]">
 
-        <div class="relative h-80 w-full duration-700 transform-style-preserve-3d group-hover:rotate-y-180">
+    <div class="relative h-[450px] w-full duration-700 transform-style-preserve-3d group-hover:rotate-y-180">
 
-            <!-- DEPAN -->
-            <div class="absolute inset-0 backface-hidden bg-white p-6 rounded-2xl shadow border-l-4 border-green-500">
+        <!-- DEPAN -->
+        <div class="absolute inset-0 backface-hidden bg-white p-6 rounded-2xl shadow border-l-4 border-green-500">
 
-                <h3 class="text-xl font-bold text-gray-700 mb-4">
-                    🚗 Pajak Kendaraan Bermotor
-                </h3>
+            <h3 class="text-xl font-bold text-gray-700 mb-4">
+                🚗 Pajak Kendaraan Bermotor
+            </h3>
 
+            <p class="text-sm text-gray-500">
+                Realisasi
+            </p>
+
+            <p class="text-2xl font-bold text-green-600">
+                Rp {{ number_format($h['total'],0,',','.') }}
+            </p>
+
+            <div class="mt-4">
                 <p class="text-sm text-gray-500">
-                    Realisasi
+                    Target Tahun {{ $tahun }}
                 </p>
 
-                <p class="text-2xl font-bold text-green-600">
-                    Rp {{ number_format($h['total'],0,',','.') }}
+                <p class="font-semibold">
+                    Rp {{ number_format($h['target'],0,',','.') }}
                 </p>
+            </div>
 
-                <div class="mt-4">
+            <div class="mt-5">
 
-                    <p class="text-sm text-gray-500">
-                        Target Tahun {{ $tahun }}
-                    </p>
+                <div class="w-full bg-gray-200 rounded-full h-3">
 
-                    <p class="font-semibold">
-                        Rp {{ number_format($h['target'],0,',','.') }}
-                    </p>
-
-                </div>
-
-                <div class="mt-5">
-
-                    <div class="w-full bg-gray-200 rounded-full h-3">
-
-                        <div
-                            class="bg-gradient-to-r from-green-400 to-green-600 h-3 rounded-full"
-                            style="width: {{ min($h['persen'],100) }}%">
-                        </div>
-
-                    </div>
-
-                    <div class="flex justify-between mt-2">
-
-                        <span>Progress</span>
-
-                        <span class="font-bold text-green-700">
-                            {{ $h['persen'] }}%
-                        </span>
-
+                    <div
+                        class="bg-gradient-to-r from-green-400 to-green-600 h-3 rounded-full"
+                        style="width: {{ min($h['persen'],100) }}%">
                     </div>
 
                 </div>
 
-                <div class="mt-6 text-center text-xs text-gray-400">
-                    Hover untuk melihat detail →
+                <div class="flex justify-between mt-2">
+
+                    <span>Progress</span>
+
+                    <span class="font-bold text-green-700">
+                        {{ $h['persen'] }}%
+                    </span>
+
                 </div>
 
             </div>
 
-            <!-- BELAKANG -->
-            <div class="absolute inset-0 rotate-y-180 backface-hidden rounded-2xl shadow-xl bg-gradient-to-br from-blue-500 to-cyan-600 text-white p-6 overflow-y-auto">
+            <div class="mt-6 text-center text-xs text-gray-400">
+                Hover untuk melihat detail →
+            </div>
 
-                <h2 class="text-xl font-bold mb-5">
-                    📊 Detail PKB
-                </h2>
+        </div>
 
 
-                <!-- PKB BBN 1 -->
-                <div class="bg-white/20 rounded-xl p-4 mb-3">
+        <!-- BELAKANG -->
+        <div class="absolute inset-0 rotate-y-180 backface-hidden rounded-2xl shadow-xl bg-gradient-to-br from-blue-500 to-cyan-600 text-white p-6">
 
-                    <div class="flex justify-between">
+            <h2 class="text-xl font-bold mb-5">
+                📊 Detail PKB
+            </h2>
 
-                        <span>
-                            🆕 PKB BBN 1
-                        </span>
 
-                        <span class="font-bold">
-                            Rp {{ number_format($h['pkb_bbn1'] ?? 0,0,',','.') }}
-                        </span>
+            <!-- PKB BBN 1 -->
+            <div class="bg-white/20 rounded-xl p-4 mb-3">
 
-                    </div>
+                <div class="flex justify-between">
 
-                </div>
+                    <span>
+                        🆕 PKB BBN 1
+                    </span>
 
-                <!-- E-Samsat -->
-                <div class="bg-white/20 rounded-xl p-4 mb-3">
-
-                    <div class="flex justify-between">
-
-                        <span>
-                            🚘 E-Samsat
-                        </span>
-
-                        <span class="font-bold">
-                            Rp {{ number_format($h['e_samsat'] ?? 0,0,',','.') }}
-                        </span>
-
-                    </div>
+                    <span class="font-bold">
+                        Rp {{ number_format($h['pkb_bbn1'] ?? 0,0,',','.') }}
+                    </span>
 
                 </div>
 
-                <!-- SIGAP -->
-                <div class="bg-white/20 rounded-xl p-4 mb-4">
+            </div>
 
-                    <div class="flex justify-between">
 
-                        <span>
-                            🚀 SIGAP
-                        </span>
+            <!-- E-Samsat -->
+            <div class="bg-white/20 rounded-xl p-4 mb-3">
 
-                        <span class="font-bold">
-                            Rp {{ number_format($h['sigap'] ?? 0,0,',','.') }}
-                        </span>
+                <div class="flex justify-between">
 
-                    </div>
+                    <span>
+                        🚘 E-Samsat
+                    </span>
+
+                    <span class="font-bold">
+                        Rp {{ number_format($h['e_samsat'] ?? 0,0,',','.') }}
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- SIGAP -->
+            <div class="bg-white/20 rounded-xl p-4 mb-3">
+
+                <div class="flex justify-between">
+
+                    <span>
+                        🚀 SIGAP
+                    </span>
+
+                    <span class="font-bold">
+                        Rp {{ number_format($h['sigap'] ?? 0,0,',','.') }}
+                    </span>
 
                 </div>
 
-                <!-- Total -->
-                <div class="bg-white rounded-xl text-gray-800 p-4">
+            </div>
 
-                    <p class="text-sm text-gray-500">
-                        Total PKB
-                    </p>
 
-                    <p class="text-2xl font-bold text-green-700">
-                        Rp {{ number_format($h['total'],0,',','.') }}
-                    </p>
+            <!-- RELAKSASI PAJAK 2026 -->
+            <div class="bg-white/20 rounded-xl p-4 mb-3">
+
+                <div class="flex justify-between gap-3">
+
+                    <span>
+                        🎁 Relaksasi Pajak 2026
+                    </span>
+
+                    <span class="font-bold whitespace-nowrap">
+                        Rp {{ number_format($h['relaksasi_pajak_2026'] ?? 0,0,',','.') }}
+                    </span>
 
                 </div>
+
+            </div>
+
+
+            <!-- TOTAL -->
+            <div class="bg-white rounded-xl text-gray-800 p-4">
+
+                <p class="text-sm text-gray-500">
+                    Total PKB
+                </p>
+
+                <p class="text-2xl font-bold text-green-700">
+                    Rp {{ number_format($h['total'],0,',','.') }}
+                </p>
 
             </div>
 
         </div>
 
     </div>
+
+</div>
 
     {{-- =======================
         DENDA PKB
