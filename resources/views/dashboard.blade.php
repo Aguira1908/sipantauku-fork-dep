@@ -109,15 +109,12 @@
         PAJAK KENDARAAN BERMOTOR
     ======================== --}}
         @if ($h['nama'] == 'PKB' || $h['nama'] == 'Pajak Kendaraan Bermotor')
-          <div class="group h-[450px] [perspective:1000px]">
+          <div class="group [perspective:1000px]">
 
-            {{-- Wrapper yang berputar --}}
-            <div
-              class="relative h-full w-full transition-transform duration-700 [transform-style:preserve-3d] [will-change:transform] group-hover:[transform:rotateY(180deg)]">
+            <div class="transform-style-preserve-3d group-hover:rotate-y-180 relative h-[450px] w-full duration-700">
 
               <!-- DEPAN -->
-              <div
-                class="absolute inset-0 overflow-hidden rounded-2xl border-l-4 border-green-500 bg-white p-6 shadow [-webkit-backface-visibility:hidden] [backface-visibility:hidden]">
+              <div class="backface-hidden absolute inset-0 rounded-2xl border-l-4 border-green-500 bg-white p-6 shadow">
 
                 <h3 class="mb-4 text-xl font-bold text-gray-700">
                   🚗 Pajak Kendaraan Bermotor
@@ -172,15 +169,15 @@
 
               <!-- BELAKANG -->
               <div
-                class="absolute inset-0 overflow-hidden rounded-2xl bg-gradient-to-br from-blue-500 to-cyan-600 p-6 text-white shadow-xl [-webkit-backface-visibility:hidden] [backface-visibility:hidden] [transform:rotateY(180deg)]">
+                class="rotate-y-180 backface-hidden absolute inset-0 rounded-2xl bg-gradient-to-br from-blue-500 to-cyan-600 p-6 text-white shadow-xl">
 
-                <h2 class="mb-4 text-xl font-bold">
+                <h2 class="mb-5 text-xl font-bold">
                   📊 Detail PKB
                 </h2>
 
 
                 <!-- PKB BBN 1 -->
-                <div class="mb-3 rounded-xl bg-white/20 p-3">
+                <div class="mb-3 rounded-xl bg-white/20 p-4">
 
                   <div class="flex justify-between">
 
@@ -198,7 +195,7 @@
 
 
                 <!-- E-Samsat -->
-                <div class="mb-3 rounded-xl bg-white/20 p-3">
+                <div class="mb-3 rounded-xl bg-white/20 p-4">
 
                   <div class="flex justify-between">
 
@@ -216,7 +213,7 @@
 
 
                 <!-- SIGAP -->
-                <div class="mb-3 rounded-xl bg-white/20 p-3">
+                <div class="mb-3 rounded-xl bg-white/20 p-4">
 
                   <div class="flex justify-between">
 
@@ -234,7 +231,7 @@
 
 
                 <!-- RELAKSASI PAJAK 2026 -->
-                <div class="mb-3 rounded-xl bg-white/20 p-3">
+                <div class="mb-3 rounded-xl bg-white/20 p-4">
 
                   <div class="flex justify-between gap-3">
 
@@ -269,6 +266,8 @@
             </div>
 
           </div>
+
+
 
           {{-- =======================
         DENDA PKB
