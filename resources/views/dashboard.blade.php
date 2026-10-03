@@ -1,565 +1,540 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <title>Dashboard Sipantauku</title>
+  <title>Dashboard Sipantauku</title>
 
-    @vite(['resources/css/app.css','resources/js/app.js'])
+  @vite(['resources/css/app.css', 'resources/js/app.js'])
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    <link rel="icon" href="{{ asset('world.png') }}" type="image/png">
+  <link href="{{ asset('world.png') }}" rel="icon" type="image/png">
 
 </head>
 
-<body class="bg-gradient-to-br from-emerald-50 via-green-50 to-teal-100 min-h-screen p-6 font-sans">
+<body class="min-h-screen bg-gradient-to-br from-emerald-50 via-green-50 to-teal-100 p-6 font-sans">
 
-<div class="max-w-7xl mx-auto">
+  <div class="mx-auto max-w-7xl">
 
     <!-- HEADER -->
-    <div class="flex justify-between items-center mb-8">
+    <div class="mb-8 flex items-center justify-between">
 
-        <div>
+      <div>
 
-            <h1 class="text-4xl font-extrabold text-green-800">
-                📊 SIPANTAUKU PPRD KUTAI TIMUR
-            </h1>
+        <h1 class="text-4xl font-extrabold text-green-800">
+          📊 SIPANTAUKU PPRD KUTAI TIMUR
+        </h1>
 
-            <p class="text-gray-600 mt-1">
-                Monitoring realisasi vs target per bagian
-            </p>
+        <p class="mt-1 text-gray-600">
+          Monitoring realisasi vs target per bagian
+        </p>
 
-        </div>
+      </div>
 
-        <a href="/laporan"
-           class="bg-gradient-to-r from-green-600 to-emerald-500 text-white px-5 py-2 rounded-xl shadow hover:scale-105 transition">
+      <a class="rounded-xl bg-gradient-to-r from-green-600 to-emerald-500 px-5 py-2 text-white shadow transition hover:scale-105"
+        href="/laporan">
 
-            📄 Laporan
+        📄 Laporan
 
-        </a>
+      </a>
 
     </div>
 
     <!-- FILTER -->
-    <form method="GET"
-    class="flex flex-wrap gap-4 mb-6 bg-white p-4 rounded-xl shadow">
+    <form class="mb-6 flex flex-wrap gap-4 rounded-xl bg-white p-4 shadow" method="GET">
 
-    <!-- TAHUN -->
-    <div>
-        <label class="block text-sm font-semibold text-gray-600 mb-1">
-            Tahun
+      <!-- TAHUN -->
+      <div>
+        <label class="mb-1 block text-sm font-semibold text-gray-600">
+          Tahun
         </label>
 
-        <input
-            type="number"
-            name="tahun"
-            value="{{ $tahun }}"
-            class="border border-gray-300 p-2 rounded-lg focus:ring-2 focus:ring-green-400"
-            placeholder="Tahun">
-    </div>
+        <input class="rounded-lg border border-gray-300 p-2 focus:ring-2 focus:ring-green-400" name="tahun"
+          placeholder="Tahun" type="number" value="{{ $tahun }}">
+      </div>
 
-    <!-- TANGGAL MULAI -->
-    <div>
-        <label class="block text-sm font-semibold text-gray-600 mb-1">
-            Dari Tanggal
+      <!-- TANGGAL MULAI -->
+      <div>
+        <label class="mb-1 block text-sm font-semibold text-gray-600">
+          Dari Tanggal
         </label>
 
-        <input
-            type="date"
-            name="tanggal_mulai"
-            value="{{ $tanggal_mulai ?? '' }}"
-            class="border border-gray-300 p-2 rounded-lg focus:ring-2 focus:ring-green-400">
-    </div>
+        <input class="rounded-lg border border-gray-300 p-2 focus:ring-2 focus:ring-green-400" name="tanggal_mulai"
+          type="date" value="{{ $tanggal_mulai ?? '' }}">
+      </div>
 
-    <!-- TANGGAL AKHIR -->
-    <div>
-        <label class="block text-sm font-semibold text-gray-600 mb-1">
-            Sampai Tanggal
+      <!-- TANGGAL AKHIR -->
+      <div>
+        <label class="mb-1 block text-sm font-semibold text-gray-600">
+          Sampai Tanggal
         </label>
 
-        <input
-            type="date"
-            name="tanggal_sampai"
-            value="{{ $tanggal_sampai ?? '' }}"
-            class="border border-gray-300 p-2 rounded-lg focus:ring-2 focus:ring-green-400">
-    </div>
+        <input class="rounded-lg border border-gray-300 p-2 focus:ring-2 focus:ring-green-400" name="tanggal_sampai"
+          type="date" value="{{ $tanggal_sampai ?? '' }}">
+      </div>
 
-    <!-- BUTTON -->
-    <div class="flex items-end gap-2">
+      <!-- BUTTON -->
+      <div class="flex items-end gap-2">
 
-        <button
-            class="bg-green-600 text-white px-5 py-2 rounded-lg hover:bg-green-700 transition shadow">
-            🔍 Filter
+        <button class="rounded-lg bg-green-600 px-5 py-2 text-white shadow transition hover:bg-green-700">
+          🔍 Filter
         </button>
 
-        <a href="/dashboard"
-            class="bg-gray-400 text-white px-5 py-2 rounded-lg hover:bg-gray-500 transition">
-            ↻ Reset
+        <a class="rounded-lg bg-gray-400 px-5 py-2 text-white transition hover:bg-gray-500" href="/dashboard">
+          ↻ Reset
         </a>
 
-    </div>
+      </div>
 
-</form>
+    </form>
 
     <!-- TOTAL -->
-    <div class="bg-gradient-to-r from-green-500 to-emerald-600 text-white p-6 rounded-2xl shadow-lg mb-8">
+    <div class="mb-8 rounded-2xl bg-gradient-to-r from-green-500 to-emerald-600 p-6 text-white shadow-lg">
 
-        <h2 class="text-lg opacity-90">
-            Total Penerimaan
-        </h2>
+      <h2 class="text-lg opacity-90">
+        Total Penerimaan
+      </h2>
 
-        <p class="text-4xl font-bold mt-2 tracking-wide">
-            Rp {{ number_format($total,0,',','.') }}
-        </p>
+      <p class="mt-2 text-4xl font-bold tracking-wide">
+        Rp {{ number_format($total, 0, ',', '.') }}
+      </p>
 
     </div>
 
     <!-- CARD -->
-<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+    <div class="mb-8 grid grid-cols-1 gap-6 md:grid-cols-3">
 
-@foreach($hasil as $h)
-
-    {{-- =======================
+      @foreach ($hasil as $h)
+        {{-- =======================
         PAJAK KENDARAAN BERMOTOR
     ======================== --}}
-    @if(
-        $h['nama'] == 'PKB' ||
-        $h['nama'] == 'Pajak Kendaraan Bermotor'
-    )
+        @if ($h['nama'] == 'PKB' || $h['nama'] == 'Pajak Kendaraan Bermotor')
+          <div class="group h-[450px] [perspective:1000px]">
 
-<div class="group [perspective:1000px]">
+            {{-- Wrapper yang berputar --}}
+            <div
+              class="relative h-full w-full transition-transform duration-700 [transform-style:preserve-3d] [will-change:transform] group-hover:[transform:rotateY(180deg)]">
 
-    <div class="relative h-[450px] w-full duration-700 transform-style-preserve-3d group-hover:rotate-y-180">
+              <!-- DEPAN -->
+              <div
+                class="absolute inset-0 overflow-hidden rounded-2xl border-l-4 border-green-500 bg-white p-6 shadow [-webkit-backface-visibility:hidden] [backface-visibility:hidden]">
 
-        <!-- DEPAN -->
-        <div class="absolute inset-0 backface-hidden bg-white p-6 rounded-2xl shadow border-l-4 border-green-500">
+                <h3 class="mb-4 text-xl font-bold text-gray-700">
+                  🚗 Pajak Kendaraan Bermotor
+                </h3>
 
-            <h3 class="text-xl font-bold text-gray-700 mb-4">
-                🚗 Pajak Kendaraan Bermotor
-            </h3>
-
-            <p class="text-sm text-gray-500">
-                Realisasi
-            </p>
-
-            <p class="text-2xl font-bold text-green-600">
-                Rp {{ number_format($h['total'],0,',','.') }}
-            </p>
-
-            <div class="mt-4">
                 <p class="text-sm text-gray-500">
+                  Realisasi
+                </p>
+
+                <p class="text-2xl font-bold text-green-600">
+                  Rp {{ number_format($h['total'], 0, ',', '.') }}
+                </p>
+
+                <div class="mt-4">
+                  <p class="text-sm text-gray-500">
                     Target Tahun {{ $tahun }}
-                </p>
+                  </p>
 
-                <p class="font-semibold">
-                    Rp {{ number_format($h['target'],0,',','.') }}
-                </p>
-            </div>
-
-            <div class="mt-5">
-
-                <div class="w-full bg-gray-200 rounded-full h-3">
-
-                    <div
-                        class="bg-gradient-to-r from-green-400 to-green-600 h-3 rounded-full"
-                        style="width: {{ min($h['persen'],100) }}%">
-                    </div>
-
+                  <p class="font-semibold">
+                    Rp {{ number_format($h['target'], 0, ',', '.') }}
+                  </p>
                 </div>
 
-                <div class="flex justify-between mt-2">
+                <div class="mt-5">
+
+                  <div class="h-3 w-full rounded-full bg-gray-200">
+
+                    <div class="h-3 rounded-full bg-gradient-to-r from-green-400 to-green-600"
+                      style="width: {{ min($h['persen'], 100) }}%">
+                    </div>
+
+                  </div>
+
+                  <div class="mt-2 flex justify-between">
 
                     <span>Progress</span>
 
                     <span class="font-bold text-green-700">
-                        {{ $h['persen'] }}%
+                      {{ $h['persen'] }}%
                     </span>
+
+                  </div>
 
                 </div>
 
-            </div>
+                <div class="mt-6 text-center text-xs text-gray-400">
+                  Hover untuk melihat detail →
+                </div>
 
-            <div class="mt-6 text-center text-xs text-gray-400">
-                Hover untuk melihat detail →
-            </div>
-
-        </div>
+              </div>
 
 
-        <!-- BELAKANG -->
-        <div class="absolute inset-0 rotate-y-180 backface-hidden rounded-2xl shadow-xl bg-gradient-to-br from-blue-500 to-cyan-600 text-white p-6">
+              <!-- BELAKANG -->
+              <div
+                class="absolute inset-0 overflow-hidden rounded-2xl bg-gradient-to-br from-blue-500 to-cyan-600 p-6 text-white shadow-xl [-webkit-backface-visibility:hidden] [backface-visibility:hidden] [transform:rotateY(180deg)]">
 
-            <h2 class="text-xl font-bold mb-5">
-                📊 Detail PKB
-            </h2>
+                <h2 class="mb-4 text-xl font-bold">
+                  📊 Detail PKB
+                </h2>
 
 
-            <!-- PKB BBN 1 -->
-            <div class="bg-white/20 rounded-xl p-4 mb-3">
+                <!-- PKB BBN 1 -->
+                <div class="mb-3 rounded-xl bg-white/20 p-3">
 
-                <div class="flex justify-between">
+                  <div class="flex justify-between">
 
                     <span>
-                        🆕 PKB BBN 1
+                      🆕 PKB BBN 1
                     </span>
 
                     <span class="font-bold">
-                        Rp {{ number_format($h['pkb_bbn1'] ?? 0,0,',','.') }}
+                      Rp {{ number_format($h['pkb_bbn1'] ?? 0, 0, ',', '.') }}
                     </span>
+
+                  </div>
 
                 </div>
 
-            </div>
 
+                <!-- E-Samsat -->
+                <div class="mb-3 rounded-xl bg-white/20 p-3">
 
-            <!-- E-Samsat -->
-            <div class="bg-white/20 rounded-xl p-4 mb-3">
-
-                <div class="flex justify-between">
+                  <div class="flex justify-between">
 
                     <span>
-                        🚘 E-Samsat
+                      🚘 E-Samsat
                     </span>
 
                     <span class="font-bold">
-                        Rp {{ number_format($h['e_samsat'] ?? 0,0,',','.') }}
+                      Rp {{ number_format($h['e_samsat'] ?? 0, 0, ',', '.') }}
                     </span>
+
+                  </div>
 
                 </div>
 
-            </div>
 
+                <!-- SIGAP -->
+                <div class="mb-3 rounded-xl bg-white/20 p-3">
 
-            <!-- SIGAP -->
-            <div class="bg-white/20 rounded-xl p-4 mb-3">
-
-                <div class="flex justify-between">
+                  <div class="flex justify-between">
 
                     <span>
-                        🚀 SIGAP
+                      🚀 SIGAP
                     </span>
 
                     <span class="font-bold">
-                        Rp {{ number_format($h['sigap'] ?? 0,0,',','.') }}
+                      Rp {{ number_format($h['sigap'] ?? 0, 0, ',', '.') }}
                     </span>
+
+                  </div>
 
                 </div>
 
-            </div>
 
+                <!-- RELAKSASI PAJAK 2026 -->
+                <div class="mb-3 rounded-xl bg-white/20 p-3">
 
-            <!-- RELAKSASI PAJAK 2026 -->
-            <div class="bg-white/20 rounded-xl p-4 mb-3">
-
-                <div class="flex justify-between gap-3">
+                  <div class="flex justify-between gap-3">
 
                     <span>
-                        🎁 Relaksasi Pajak 2026
+                      🎁 Relaksasi Pajak 2026
                     </span>
 
-                    <span class="font-bold whitespace-nowrap">
-                        Rp {{ number_format($h['relaksasi_pajak_2026'] ?? 0,0,',','.') }}
+                    <span class="whitespace-nowrap font-bold">
+                      Rp {{ number_format($h['relaksasi_pajak_2026'] ?? 0, 0, ',', '.') }}
                     </span>
+
+                  </div>
 
                 </div>
 
-            </div>
 
+                <!-- TOTAL -->
+                <div class="rounded-xl bg-white p-4 text-gray-800">
 
-            <!-- TOTAL -->
-            <div class="bg-white rounded-xl text-gray-800 p-4">
-
-                <p class="text-sm text-gray-500">
+                  <p class="text-sm text-gray-500">
                     Total PKB
-                </p>
+                  </p>
 
-                <p class="text-2xl font-bold text-green-700">
-                    Rp {{ number_format($h['total'],0,',','.') }}
-                </p>
+                  <p class="text-2xl font-bold text-green-700">
+                    Rp {{ number_format($h['total'], 0, ',', '.') }}
+                  </p>
+
+                </div>
+
+              </div>
 
             </div>
 
-        </div>
+          </div>
 
-    </div>
-
-</div>
-
-    {{-- =======================
+          {{-- =======================
         DENDA PKB
     ======================== --}}
-    @elseif(
-        $h['nama'] == 'Denda PKB' ||
-        $h['nama'] == 'Denda Pajak Kendaraan Bermotor'
-    )
+        @elseif($h['nama'] == 'Denda PKB' || $h['nama'] == 'Denda Pajak Kendaraan Bermotor')
+          <div class="group [perspective:1000px]">
 
-    <div class="group [perspective:1000px]">
+            <div class="transform-style-preserve-3d group-hover:rotate-y-180 relative h-80 w-full duration-700">
 
-        <div class="relative h-80 w-full duration-700 transform-style-preserve-3d group-hover:rotate-y-180">
+              <!-- DEPAN -->
+              <div class="backface-hidden absolute inset-0 rounded-2xl border-l-4 border-red-500 bg-white p-6 shadow">
 
-            <!-- DEPAN -->
-            <div class="absolute inset-0 backface-hidden bg-white p-6 rounded-2xl shadow border-l-4 border-red-500">
-
-                <h3 class="text-xl font-bold text-gray-700 mb-4">
-                    🚨 Denda Pajak Kendaraan Bermotor
+                <h3 class="mb-4 text-xl font-bold text-gray-700">
+                  🚨 Denda Pajak Kendaraan Bermotor
                 </h3>
 
                 <p class="text-sm text-gray-500">
-                    Realisasi
+                  Realisasi
                 </p>
 
                 <p class="text-2xl font-bold text-red-600">
-                    Rp {{ number_format($h['total'],0,',','.') }}
+                  Rp {{ number_format($h['total'], 0, ',', '.') }}
                 </p>
 
                 <div class="mt-4">
 
-                    <p class="text-sm text-gray-500">
-                        Target Tahun {{ $tahun }}
-                    </p>
+                  <p class="text-sm text-gray-500">
+                    Target Tahun {{ $tahun }}
+                  </p>
 
-                    <p class="font-semibold">
-                        Rp {{ number_format($h['target'],0,',','.') }}
-                    </p>
+                  <p class="font-semibold">
+                    Rp {{ number_format($h['target'], 0, ',', '.') }}
+                  </p>
 
                 </div>
 
                 <div class="mt-5">
 
-                    <div class="w-full bg-gray-200 rounded-full h-3">
+                  <div class="h-3 w-full rounded-full bg-gray-200">
 
-                        <div
-                            class="bg-gradient-to-r from-red-400 to-red-600 h-3 rounded-full"
-                            style="width: {{ min($h['persen'],100) }}%">
-                        </div>
-
+                    <div class="h-3 rounded-full bg-gradient-to-r from-red-400 to-red-600"
+                      style="width: {{ min($h['persen'], 100) }}%">
                     </div>
 
-                    <div class="flex justify-between mt-2">
+                  </div>
 
-                        <span>Progress</span>
+                  <div class="mt-2 flex justify-between">
 
-                        <span class="font-bold text-red-700">
-                            {{ $h['persen'] }}%
-                        </span>
+                    <span>Progress</span>
 
-                    </div>
+                    <span class="font-bold text-red-700">
+                      {{ $h['persen'] }}%
+                    </span>
+
+                  </div>
 
                 </div>
 
                 <div class="mt-6 text-center text-xs text-gray-400">
-                    Hover untuk melihat detail →
+                  Hover untuk melihat detail →
                 </div>
 
-            </div>
+              </div>
 
-            <!-- BELAKANG -->
-            <div class="absolute inset-0 rotate-y-180 backface-hidden rounded-2xl shadow-xl bg-gradient-to-br from-red-500 to-orange-500 text-white p-6 h-80 overflow-y-auto">
+              <!-- BELAKANG -->
+              <div
+                class="rotate-y-180 backface-hidden absolute inset-0 h-80 overflow-y-auto rounded-2xl bg-gradient-to-br from-red-500 to-orange-500 p-6 text-white shadow-xl">
 
-                <h2 class="text-xl font-bold mb-5">
-                    🚨 Detail Denda PKB
+                <h2 class="mb-5 text-xl font-bold">
+                  🚨 Detail Denda PKB
                 </h2>
 
                 <!-- Denda PKB BBN 1 -->
-                <div class="bg-white/20 rounded-xl p-4 mb-3">
-                    <div class="flex justify-between">
-                        <span>🆕 Denda PKB BBN 1</span>
-                        <span class="font-bold">
-                            Rp {{ number_format($h['denda_pkb_bbn1'] ?? 0,0,',','.') }}
-                        </span>
-                    </div>
+                <div class="mb-3 rounded-xl bg-white/20 p-4">
+                  <div class="flex justify-between">
+                    <span>🆕 Denda PKB BBN 1</span>
+                    <span class="font-bold">
+                      Rp {{ number_format($h['denda_pkb_bbn1'] ?? 0, 0, ',', '.') }}
+                    </span>
+                  </div>
                 </div>
 
                 <!-- Denda E-Samsat -->
-                <div class="bg-white/20 rounded-xl p-4 mb-3">
-                    <div class="flex justify-between">
-                        <span>🚘 Denda E-Samsat</span>
-                        <span class="font-bold">
-                            Rp {{ number_format($h['denda_e_samsat'] ?? 0,0,',','.') }}
-                        </span>
-                    </div>
+                <div class="mb-3 rounded-xl bg-white/20 p-4">
+                  <div class="flex justify-between">
+                    <span>🚘 Denda E-Samsat</span>
+                    <span class="font-bold">
+                      Rp {{ number_format($h['denda_e_samsat'] ?? 0, 0, ',', '.') }}
+                    </span>
+                  </div>
                 </div>
 
                 <!-- Denda SIGAP -->
-                <div class="bg-white/20 rounded-xl p-4 mb-4">
-                    <div class="flex justify-between">
-                        <span>🚀 Denda SIGAP</span>
-                        <span class="font-bold">
-                            Rp {{ number_format($h['denda_sigap'] ?? 0,0,',','.') }}
-                        </span>
-                    </div>
+                <div class="mb-4 rounded-xl bg-white/20 p-4">
+                  <div class="flex justify-between">
+                    <span>🚀 Denda SIGAP</span>
+                    <span class="font-bold">
+                      Rp {{ number_format($h['denda_sigap'] ?? 0, 0, ',', '.') }}
+                    </span>
+                  </div>
                 </div>
 
                 <!-- Total -->
-                <div class="bg-white rounded-xl text-gray-800 p-4">
-                    <p class="text-sm text-gray-500">
-                        Total Denda PKB
-                    </p>
+                <div class="rounded-xl bg-white p-4 text-gray-800">
+                  <p class="text-sm text-gray-500">
+                    Total Denda PKB
+                  </p>
 
-                    <p class="text-2xl font-bold text-red-700">
-                        Rp {{ number_format($h['total'],0,',','.') }}
-                    </p>
+                  <p class="text-2xl font-bold text-red-700">
+                    Rp {{ number_format($h['total'], 0, ',', '.') }}
+                  </p>
                 </div>
+
+              </div>
 
             </div>
 
-        </div>
+          </div>
 
-    </div>
-
-    {{-- =======================
+          {{-- =======================
         BAGIAN LAIN
     ======================== --}}
-    @else
+        @else
+          <div class="rounded-2xl border-l-4 border-green-500 bg-white p-6 shadow transition hover:shadow-xl">
 
-    <div class="bg-white p-6 rounded-2xl shadow hover:shadow-xl transition border-l-4 border-green-500">
+            <h3 class="text-lg font-bold text-gray-700">
+              📁 {{ $h['nama'] }}
+            </h3>
 
-        <h3 class="text-lg font-bold text-gray-700">
-            📁 {{ $h['nama'] }}
-        </h3>
+            <div class="mt-4">
 
-        <div class="mt-4">
-
-            <p class="text-sm text-gray-500">
+              <p class="text-sm text-gray-500">
                 Realisasi
-            </p>
+              </p>
 
-            <p class="text-green-600 font-bold text-xl">
-                Rp {{ number_format($h['total'],0,',','.') }}
-            </p>
-
-        </div>
-
-        <div class="mt-4">
-
-            <p class="text-sm text-gray-500">
-                Target Tahun {{ $tahun }}
-            </p>
-
-            <p class="font-semibold">
-                Rp {{ number_format($h['target'],0,',','.') }}
-            </p>
-
-        </div>
-
-        <div class="mt-5">
-
-            <div class="w-full bg-gray-200 rounded-full h-3">
-
-                <div
-                    class="bg-gradient-to-r from-green-400 to-green-600 h-3 rounded-full"
-                    style="width: {{ min($h['persen'],100) }}%">
-                </div>
+              <p class="text-xl font-bold text-green-600">
+                Rp {{ number_format($h['total'], 0, ',', '.') }}
+              </p>
 
             </div>
 
-            <div class="flex justify-between mt-2">
+            <div class="mt-4">
+
+              <p class="text-sm text-gray-500">
+                Target Tahun {{ $tahun }}
+              </p>
+
+              <p class="font-semibold">
+                Rp {{ number_format($h['target'], 0, ',', '.') }}
+              </p>
+
+            </div>
+
+            <div class="mt-5">
+
+              <div class="h-3 w-full rounded-full bg-gray-200">
+
+                <div class="h-3 rounded-full bg-gradient-to-r from-green-400 to-green-600"
+                  style="width: {{ min($h['persen'], 100) }}%">
+                </div>
+
+              </div>
+
+              <div class="mt-2 flex justify-between">
 
                 <span>Progress</span>
 
                 <span class="font-bold text-green-700">
-                    {{ $h['persen'] }}%
+                  {{ $h['persen'] }}%
                 </span>
+
+              </div>
 
             </div>
 
-        </div>
+          </div>
+        @endif
+      @endforeach
 
     </div>
-
-    @endif
-
-@endforeach
-
-</div>
 
     <!-- CHART -->
-    <div class="bg-white p-6 rounded-2xl shadow-lg">
+    <div class="rounded-2xl bg-white p-6 shadow-lg">
 
-        <h2 class="font-bold text-gray-700 mb-4">
+      <h2 class="mb-4 font-bold text-gray-700">
 
-            📈 Perbandingan Target vs Realisasi
+        📈 Perbandingan Target vs Realisasi
 
-        </h2>
+      </h2>
 
-        <canvas id="chart"></canvas>
+      <canvas id="chart"></canvas>
 
     </div>
 
-</div>
+  </div>
 
-<script>
+  <script>
+    const data = @json($hasil);
 
-const data = @json($hasil);
+    new Chart(document.getElementById('chart'), {
 
-new Chart(document.getElementById('chart'), {
+      type: 'bar',
 
-    type:'bar',
+      data: {
 
-    data:{
+        labels: data.map(d => d.nama),
 
-        labels:data.map(d=>d.nama),
+        datasets: [
 
-        datasets:[
+          {
 
-            {
+            label: 'Realisasi',
 
-                label:'Realisasi',
+            data: data.map(d => d.total),
 
-                data:data.map(d=>d.total),
+            backgroundColor: 'rgba(239,68,68,.8)',
 
-                backgroundColor:'rgba(239,68,68,.8)',
+            borderRadius: 6
 
-                borderRadius:6
+          },
 
-            },
+          {
 
-            {
+            label: 'Target Tahun {{ $tahun }}',
 
-                label:'Target Tahun {{ $tahun }}',
+            data: data.map(d => d.target),
 
-                data:data.map(d=>d.target),
+            backgroundColor: 'rgba(16,185,129,.8)',
 
-                backgroundColor:'rgba(16,185,129,.8)',
+            borderRadius: 6
 
-                borderRadius:6
-
-            }
+          }
 
         ]
 
+      }
+
+    });
+  </script>
+
+  <style>
+    .transform-style-preserve-3d {
+
+      transform-style: preserve-3d;
+
     }
 
-});
+    .backface-hidden {
 
-</script>
+      backface-visibility: hidden;
 
-<style>
+    }
 
-.transform-style-preserve-3d{
+    .rotate-y-180 {
 
-    transform-style:preserve-3d;
+      transform: rotateY(180deg);
 
-}
+    }
 
-.backface-hidden{
+    .group:hover .group-hover\:rotate-y-180 {
 
-    backface-visibility:hidden;
+      transform: rotateY(180deg);
 
-}
-
-.rotate-y-180{
-
-    transform:rotateY(180deg);
-
-}
-
-.group:hover .group-hover\:rotate-y-180{
-
-    transform:rotateY(180deg);
-
-}
-
-</style>
+    }
+  </style>
 
 </body>
+
 </html>

@@ -3,155 +3,146 @@
 
 <head>
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>SIPANTAUKU | Akses Dashboard</title>
+  <title>SIPANTAUKU | Akses Dashboard</title>
 
-    @vite(['resources/css/app.css'])
+  @vite(['resources/css/app.css'])
 
-    <link rel="icon" href="{{ asset('world.png') }}">
-    <script src="https://unpkg.com/feather-icons"></script>
+  <link href="{{ asset('world.png') }}" rel="icon">
+  <script src="https://unpkg.com/feather-icons"></script>
 
 </head>
 
-<body class="min-h-screen bg-gradient-to-br from-green-700 via-emerald-600 to-teal-700 flex items-center justify-center p-5">
+<body
+  class="flex min-h-screen items-center justify-center bg-gradient-to-br from-green-700 via-emerald-600 to-teal-700 p-5">
 
-    <!-- Background Blur -->
-    <div class="absolute inset-0 overflow-hidden">
+  <!-- Background Blur -->
+  <div class="absolute inset-0 overflow-hidden">
 
-        <div class="absolute -top-20 -left-20 w-96 h-96 bg-green-400 opacity-20 rounded-full blur-3xl"></div>
+    <div class="absolute -left-20 -top-20 h-96 w-96 rounded-full bg-green-400 opacity-20 blur-3xl"></div>
 
-        <div class="absolute bottom-0 right-0 w-[500px] h-[500px] bg-cyan-300 opacity-20 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-0 right-0 h-[500px] w-[500px] rounded-full bg-cyan-300 opacity-20 blur-3xl"></div>
 
-    </div>
+  </div>
 
-    <!-- CARD -->
-    <div class="relative w-full max-w-md">
+  <!-- CARD -->
+  <div class="relative w-full max-w-md">
 
-        <div class="bg-white/95 backdrop-blur-xl rounded-3xl shadow-2xl p-10">
+    <div class="rounded-3xl bg-white/95 p-10 shadow-2xl backdrop-blur-xl">
 
-            <!-- Logo -->
-            <div class="flex justify-center mb-5">
+      <!-- Logo -->
+      <div class="mb-5 flex justify-center">
 
-                <img src="{{ asset('world.png') }}"
-                    class="w-20 h-20 drop-shadow-lg">
+        <img class="h-20 w-20 drop-shadow-lg" src="{{ asset('world.png') }}">
 
-            </div>
+      </div>
 
-            <!-- Judul -->
-            <h1 class="text-3xl font-extrabold text-center text-green-700">
+      <!-- Judul -->
+      <h1 class="text-center text-3xl font-extrabold text-green-700">
 
-                SIPANTAUKU
+        SIPANTAUKU
 
-            </h1>
+      </h1>
 
-            <p class="text-center text-gray-500 mt-2">
+      <p class="mt-2 text-center text-gray-500">
 
-                Sistem Informasi Pemantauan Target dan Realisasi Pajak Daerah
+        Sistem Informasi Pemantauan Target dan Realisasi Pajak Daerah
 
-            </p>
+      </p>
 
-            <div class="border-t my-6"></div>
+      <div class="my-6 border-t"></div>
 
-            <h2 class="text-xl font-bold text-center text-gray-700">
+      <h2 class="text-center text-xl font-bold text-gray-700">
 
-                🔒 Dashboard Monitoring
+        🔒 Dashboard Monitoring
 
-            </h2>
+      </h2>
 
-            <p class="text-center text-gray-500 text-sm mt-2 mb-6">
+      <p class="mb-6 mt-2 text-center text-sm text-gray-500">
 
-                Masukkan password untuk membuka dashboard.
+        Masukkan password untuk membuka dashboard.
 
-            </p>
+      </p>
 
-            @if(session('error'))
+      @if (session('error'))
+        <div class="mb-5 rounded-xl border border-red-300 bg-red-100 p-3 text-sm text-red-700">
 
-                <div class="bg-red-100 border border-red-300 text-red-700 rounded-xl p-3 mb-5 text-sm">
+          {{ session('error') }}
 
-                    {{ session('error') }}
+        </div>
+      @endif
 
-                </div>
+      <form method="POST">
 
-            @endif
+        @csrf
 
-            <form method="POST">
+        <label class="mb-2 block font-semibold text-gray-700">
 
-                @csrf
+          Password
 
-                <label class="block mb-2 font-semibold text-gray-700">
+        </label>
 
-                    Password
+        <div class="relative">
 
-                </label>
+          <input
+            class="w-full rounded-xl border border-gray-300 px-4 py-3 pr-12 focus:outline-none focus:ring-2 focus:ring-green-500"
+            id="password" name="password" placeholder="Masukkan Password" type="password">
 
-                <div class="relative">
+          <button class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 hover:text-green-700"
+            onclick="togglePassword()" type="button">
 
-                    <input
-                        id="password"
-                        type="password"
-                        name="password"
-                        placeholder="Masukkan Password"
-                        class="w-full border border-gray-300 rounded-xl py-3 px-4 pr-12 focus:ring-2 focus:ring-green-500 focus:outline-none">
+            <i data-feather="eye" id="eyeIcon"></i>
 
-                    <button
-                        type="button"
-                        onclick="togglePassword()"
-                        class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 hover:text-green-700">
-
-                        <i id="eyeIcon" data-feather="eye"></i>
-
-                    </button>
-
-                </div>
-
-                <button
-                    type="submit"
-                    class="mt-6 w-full bg-gradient-to-r from-green-600 to-emerald-500 text-white py-3 rounded-xl font-bold shadow-lg hover:scale-105 hover:shadow-xl transition">
-
-                    🚀 Masuk Dashboard
-
-                </button>
-
-            </form>
-
-            <div class="mt-8 text-center text-xs text-gray-400">
-
-                © {{ date('Y') }} SIPANTAUKU PPRD Kutai Timur
-
-            </div>
+          </button>
 
         </div>
 
+        <button
+          class="mt-6 w-full rounded-xl bg-gradient-to-r from-green-600 to-emerald-500 py-3 font-bold text-white shadow-lg transition hover:scale-105 hover:shadow-xl"
+          type="submit">
+
+          🚀 Masuk Dashboard
+
+        </button>
+
+      </form>
+
+      <div class="mt-8 text-center text-xs text-gray-400">
+
+        © {{ date('Y') }} SIPANTAUKU PPRD Kutai Timur
+
+      </div>
+
     </div>
 
-<script>
+  </div>
 
-feather.replace();
-
-function togglePassword(){
-
-    const password = document.getElementById('password');
-    const icon = document.getElementById('eyeIcon');
-
-    if(password.type === "password"){
-
-        password.type = "text";
-        icon.setAttribute("data-feather","eye-off");
-
-    }else{
-
-        password.type = "password";
-        icon.setAttribute("data-feather","eye");
-
-    }
-
+  <script>
     feather.replace();
 
-}
+    function togglePassword() {
 
-</script>
+      const password = document.getElementById('password');
+      const icon = document.getElementById('eyeIcon');
+
+      if (password.type === "password") {
+
+        password.type = "text";
+        icon.setAttribute("data-feather", "eye-off");
+
+      } else {
+
+        password.type = "password";
+        icon.setAttribute("data-feather", "eye");
+
+      }
+
+      feather.replace();
+
+    }
+  </script>
 
 </body>
 
